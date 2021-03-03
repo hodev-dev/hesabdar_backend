@@ -1,5 +1,7 @@
 <?php
-
+  header('Access-Control-Allow-Origin', '*');
+  header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 return [
 
     /*
@@ -40,7 +42,6 @@ return [
     */
 
     'debug' => (bool) env('APP_DEBUG', false),
-
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -228,5 +229,4 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
 ];
