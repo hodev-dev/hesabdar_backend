@@ -16,8 +16,12 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('code');
+            $table->boolean('sharable');
             $table->unsignedBigInteger('group_id')->index();
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->unsignedBigInteger('tahsimlable_id')->index();
+            $table->foreign('tahsimlable_id')->references('id')->on('tahsimlables');
             $table->unsignedBigInteger('users');
             $table->unsignedBigInteger('produce');
         });

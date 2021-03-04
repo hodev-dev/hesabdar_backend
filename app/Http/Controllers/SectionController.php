@@ -11,11 +11,18 @@ class SectionController extends Controller
     public function add_section(Request $request)
     {
         $name = $request['name'];
+        $code = $request['code'];
         $group = $request['group'];
         $workers_count = $request['workers'];
         $produce = $request['produce'];
+        $sharable = $request['sharable'];
+        $tahsimLableSelect = $request['tahsimLableSelect'];
+
         $save = Section::create([
             'name' => $name,
+            'code' => $code,
+            'sharable' => $sharable,
+            'tahsimlable_id' => $tahsimLableSelect,
             'group_id' => $group,
             'users' => $workers_count,
             'produce' => $produce
@@ -42,19 +49,35 @@ class SectionController extends Controller
     {
         $id = $request['id'];
         $name = $request['name'];
+        $code = $request['code'];
         $group = $request['group'];
-        $users = $request['workers'];
+        $workers_count = $request['workers'];
         $produce = $request['produce'];
+        $sharable = $request['sharable'];
+        $tahsimLableSelect = $request['tahsimLableSelect'];
 
         $selected_section = Section::where('id', $request['id'])
         ->update(
             [
-                'name'=> $name,
+                'name' => $name,
+                'code' => $code,
+                'sharable' => $sharable,
+                'tahsimlable_id' => $tahsimLableSelect,
                 'group_id' => $group,
-                'users' => $users,
+                'users' => $workers_count,
                 'produce' => $produce
             ]
         );
         return Response::json($selected_section);
+    }
+
+    public function get_section_cost()
+    {
+        return Section::with('costs')->get();
+    }
+    public function get_section_cost_with_id(Request $request)
+    {
+        $id = $request['id'];
+        return Section::where('id', $id)->with('costs')->first();
     }
 }
