@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Label;
+use App\Exports\LableExport;
+use App\Imports\LableImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Response;
 
 class LabelController extends Controller
@@ -27,5 +30,16 @@ class LabelController extends Controller
         $id = $request['id'];
         Label::where('id', $id)->delete();
         return Response::json([$id]);
+    }
+
+    protected function import_label(Request $request)
+    {
+        Excel::import(new LableImport, $request['exel']);
+        return Response::json(['imported']);
+    }
+
+    protected function export_label()
+    {
+        return Excel::download(new LableExport, 'label.xlsx');
     }
 }
