@@ -23,7 +23,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 5,
-                'produce' => 1
+                'produce' => 10046160
             ],
             [
                 'name' => 'لوله سازی',
@@ -41,7 +41,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 11,
-                'produce' => 1
+                'produce' => 742092
             ],
             [
                 'name' => 'گالوانیزه لوله',
@@ -77,7 +77,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 1502313
             ],
             [
                 'name' => 'سالن سازی',
@@ -109,6 +109,15 @@ class SectionSeeder extends Seeder
                 'produce' => 1
             ],
             [
+                'name' => 'دفتر فنی',
+                'code' => 112310,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 2,
+                'users' => 4,
+                'produce' => 1
+            ],
+            [
                 'name' => 'ماشین سازی',
                 'code' => 112320,
                 'sharable' => 0,
@@ -120,6 +129,15 @@ class SectionSeeder extends Seeder
             [
                 'name' => 'تعمیرات برق',
                 'code' => 112330,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 2,
+                'users' => 16,
+                'produce' => 1
+            ],
+            [
+                'name' => 'تعمیرات وسایل نقلیه',
+                'code' => 112340,
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
@@ -165,6 +183,24 @@ class SectionSeeder extends Seeder
             [
                 'name' => 'رستوران',
                 'code' => 112420,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 2,
+                'users' => 3,
+                'produce' => 1
+            ],
+            [
+                'name' => 'ترابری',
+                'code' => 112430,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 2,
+                'users' => 3,
+                'produce' => 1
+            ],
+            [
+                'name' => 'بهداشت و درمان',
+                'code' => 112440,
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
@@ -230,6 +266,24 @@ class SectionSeeder extends Seeder
             [
                 'name' => 'مدریت',
                 'code' => 113210,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 3,
+                'users' => 3,
+                'produce' => 1
+            ],
+            [
+                'name' => 'امور مالی',
+                'code' => 113610,
+                'sharable' => 0,
+                'tahsimlable_id' => 1,
+                'group_id' => 3,
+                'users' => 3,
+                'produce' => 1
+            ],
+            [
+                'name' => 'مخابرات',
+                'code' => 113430,
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 3,

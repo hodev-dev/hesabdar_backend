@@ -15,7 +15,8 @@ class CreateCostsTable extends Migration
     {
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->string('cost_label');
+            $table->unsignedBigInteger('label_id')->index();
+            $table->foreign('label_id')->references('id')->on('labels');
             $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('id')->on('sections');
             $table->bigInteger('value');

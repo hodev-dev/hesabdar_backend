@@ -2,6 +2,7 @@
 
 use App\Models\Label;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CostController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TahsimlableController;
@@ -39,3 +40,6 @@ Route::get('/export_label', [LabelController::class,'export_label']);
 Route::get('/get_tahsimlabel', [TahsimlableController::class,'get_tahsimlabel']);
 Route::post('/remove_tashimlabel', [TahsimlableController::class,'remove_tashimlabel']);
 Route::post('/add_tahsimlable', [TahsimlableController::class,'add_tahsimlable']);
+
+// cost
+Route::post('/import_cost', [CostController::class,'import_cost']);
