@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 use Database\Seeders\GroupSeeder;
+use Database\Seeders\TahsimLabel;
+use Database\Seeders\SectionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +20,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             GroupSeeder::class,
+            TahsimLabel::class,
+            SectionSeeder::class
         ]);
     }
 }
