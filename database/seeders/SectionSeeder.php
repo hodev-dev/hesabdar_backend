@@ -22,7 +22,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 5,
                 'produce' => 1
             ],
             [
@@ -31,16 +31,16 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 29,
                 'produce' => 1
             ],
             [
-                'name' => 'کشش تولید',
+                'name' => 'کشش لوله',
                 'code' => 111130,
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 11,
                 'produce' => 1
             ],
             [
@@ -49,7 +49,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 25,
                 'produce' => 1
             ],
             [
@@ -58,7 +58,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 31,
                 'produce' => 1
             ],
             [
@@ -85,7 +85,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
-                'users' => 1,
+                'users' => 5,
                 'produce' => 1
             ],
 
@@ -105,7 +105,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 10,
                 'produce' => 1
             ],
             [
@@ -114,7 +114,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 4,
                 'produce' => 1
             ],
             [
@@ -123,7 +123,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 16,
                 'produce' => 1
             ],
             [
@@ -132,7 +132,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 3,
                 'produce' => 1
             ],
             [
@@ -141,7 +141,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 3,
                 'produce' => 1
             ],
             [
@@ -150,7 +150,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 11,
                 'produce' => 1
             ],
             [
@@ -159,7 +159,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 4,
                 'produce' => 1
             ],
             [
@@ -168,7 +168,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 3,
                 'produce' => 1
             ],
             [
@@ -186,7 +186,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 32,
                 'produce' => 1
             ],
             [
@@ -195,7 +195,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 2,
                 'produce' => 1
             ],
             [
@@ -204,7 +204,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
-                'users' => 1,
+                'users' => 7,
                 'produce' => 1
             ],
             [
@@ -233,16 +233,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
-                'users' => 1,
-                'produce' => 1
-            ],
-            [
-                'name' => 'مدریت',
-                'code' => 113210,
-                'sharable' => 0,
-                'tahsimlable_id' => 1,
-                'group_id' => 3,
-                'users' => 1,
+                'users' => 3,
                 'produce' => 1
             ],
             [
@@ -260,7 +251,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
-                'users' => 1,
+                'users' => 17,
                 'produce' => 1
             ],
             [
@@ -269,7 +260,7 @@ class SectionSeeder extends Seeder
                 'sharable' => 0,
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
-                'users' => 1,
+                'users' => 2,
                 'produce' => 1
             ],
             [
