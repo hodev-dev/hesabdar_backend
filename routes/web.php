@@ -43,3 +43,9 @@ Route::post('/add_tahsimlable', [TahsimlableController::class,'add_tahsimlable']
 
 // cost
 Route::post('/import_cost', [CostController::class,'import_cost']);
+Route::post('/get_label_cost', [CostController::class,'get_label_cost']);
+
+
+// test
+Route::get('/sum', [CostController::class,'sum']);
+Route::get('/sum_pw', [CostController::class,'sum_pw']);

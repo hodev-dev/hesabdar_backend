@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Cost extends Model
 {
     use HasFactory;
-    protected $fillable = ['label_id','section_id','value'];
+    protected $fillable = ['label_id','section_id','value','group_id'];
     public function label()
     {
         return $this->belongsTo(Label::class);

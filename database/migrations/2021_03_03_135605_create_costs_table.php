@@ -19,6 +19,7 @@ class CreateCostsTable extends Migration
             $table->foreign('label_id')->references('id')->on('labels');
             $table->unsignedBigInteger('section_id')->index();
             $table->foreign('section_id')->references('id')->on('sections');
+            $table->integer('group_id');
             $table->bigInteger('value');
             $table->timestamps();
         });
