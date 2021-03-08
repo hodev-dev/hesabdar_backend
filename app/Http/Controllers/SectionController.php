@@ -73,11 +73,11 @@ class SectionController extends Controller
 
     public function get_section_cost()
     {
-        return Section::with('costs')->get();
+        return Section::with('costs.label')->get();
     }
     public function get_section_cost_with_id(Request $request)
     {
         $id = $request['id'];
-        return Section::where('id', $id)->with('costs')->first();
+        return Section::where('id', $id)->with('costs.label')->first();
     }
 }
