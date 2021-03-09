@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Label;
+use App\Models\Section;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\LabelController;
@@ -49,3 +50,12 @@ Route::post('/get_label_cost', [CostController::class,'get_label_cost']);
 // test
 Route::get('/sum', [CostController::class,'sum']);
 Route::get('/sum_pw', [CostController::class,'sum_pw']);
+Route::get('/tashim', function () {
+    $from =  Section::with('costs')->first();
+    $select = $from->costs[0];
+    $to = Section::where('group_id', 1)->with('costs', function ($cost) use ($select) {
+        $cost->where('label_id', $select->label_id);
+    })->get();
+    $select->value;
+    return $to->users * $select->value;
+});

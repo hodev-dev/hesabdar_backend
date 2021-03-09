@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cost;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -78,6 +79,8 @@ class SectionController extends Controller
     public function get_section_cost_with_id(Request $request)
     {
         $id = $request['id'];
-        return Section::where('id', $id)->with('costs.label')->first();
+        $section_with_costs = Section::where('id', $id)->with('costs.label')->first();
+        $sum = Cost::where('section_id', $id)->sum('value');
+        return Response::json(['sections_with_costs' => $section_with_costs,'sum' => $sum ]);
     }
 }

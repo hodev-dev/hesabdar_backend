@@ -24,7 +24,7 @@ class CostController extends Controller
 
     public function get_label_cost(Request $request)
     {
-        $costs = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->with('label')->get();
+        $costs = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->with('label', 'section')->get();
         $sum = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->sum('value');
         $sumInRange = Cost::whereBetween('label_id', [1,$request['label_id']])->sum('value');
         return Response::json(['costs' => $costs,'sum' => $sum ,'range_sum' => $sumInRange]);

@@ -199,15 +199,6 @@ class SectionSeeder extends Seeder
                 'produce' => 1
             ],
             [
-                'name' => 'بهداشت و درمان',
-                'code' => 112440,
-                'sharable' => 0,
-                'tahsimlable_id' => 1,
-                'group_id' => 2,
-                'users' => 3,
-                'produce' => 1
-            ],
-            [
                 'name' => 'ایمنی',
                 'code' => 112450,
                 'sharable' => 0,

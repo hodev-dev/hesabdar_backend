@@ -28,6 +28,10 @@ class CostImport implements ToCollection, WithHeadingRow
             $label = Label::where('group_code', (integer) $row['group'])
             ->where('code', (integer) $row['code'])
             ->first();
+
+            error_log($section->id);
+            error_log($section->name);
+
             Cost::create([
                 'label_id' => $label->id,
                 'section_id' => $section->id,
