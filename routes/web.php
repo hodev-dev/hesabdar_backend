@@ -59,70 +59,62 @@ Route::get('/sum_pw', [CostController::class,'sum_pw']);
 // tashim
 Route::get('/get_tashim_log', [TashimlogController::class,'get_tashim_log']);
 
-Route::post('/tashim', function (Request $request) {
-    $from_sections = Section::where('id', $request->id)->where('group_id', '!=', 1)->with('costs.label')->first();
+Route::get('/tahsim', function (Request $request) {
+    $from_sections = Section::where('id', 19)->with('costs.label')->first();
     foreach ($from_sections->costs as $from_cost) {
-        $from_label = Label::find($from_cost->label_id);
-        $from_label_code = $from_label->code;
+        $from_label_code = $from_cost->label->code;
+        $from_label_id = $from_cost->label->id;
         $total_users = Section::all()->sum('users');
-        $total_users_without_from = $total_users - $from_sections->users;
-        $cost_of_each_label_for_each_user = $from_cost->value / $total_users_without_from ;
-        $to_label = Label::where('code', $from_label_code)->where('group_code', 811)->first();
-        $to_sections_with_costs = Section::where('id', '!=', $request->id)->with('costs.label')->get();
-        foreach ($to_sections_with_costs as $to_section) {
-            error_log($from_cost->value);
-            $get_section_id;
+        $from_users = Section::where('id', $from_cost->section_id)->first()->users;
+        $users = $total_users - $from_users;
+        $cost_for_each_section = $from_cost->value / $users;
+        $to_sections = Section::where('id', '!=', 19)->get();
+        foreach ($to_sections as $to_section) {
+            $to_group_code = 0;
             if ($to_section->group_id === 1) {
-                $get_section_id = 811;
+                $to_group_code = 811 ;
             } elseif ($to_section->group_id === 2) {
-                $get_section_id = 812;
+                $to_group_code = 812 ;
             } else {
-                $get_section_id = 813;
+                $to_group_code = 813 ;
             }
-            $cost_of_each_section = $cost_of_each_label_for_each_user * $to_section->users;
-            $corresponding_cost =  Cost::where('section_id', $to_section->id)->where('label_id', $to_label->id)
-            ->firstOrCreate(
-                [
-                    'label_id' => $to_label->id
-                ],
-                [
-                'label_id' => $to_label->id,
-                'section_id' => $to_section->id,
-                'group_id' => $get_section_id,
-                'value' => 0
-            ]
-            );
 
-            Tashimlog::insert([
-                'type' => 0,
-                'label_id' => $to_label->id,
-                'from_section_id' => $from_cost->section_id,
-                'to_section_id' => $to_section->id,
-                'prev_value' => $from_cost->value,
-                'receive' => 0,
-                'send' => $cost_of_each_section,
-                'final' => $from_cost->value - $cost_of_each_section
+            $to_label =  Label::where('code', $from_label_code)->where('group_code', $to_group_code)->first();
+            $to_label_id = $to_label->id;
+
+            $to_costs = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->firstOrCreate([
+                'label_id' => $to_label_id
+            ], [
+                'label_id' => $to_label_id,
+                'section_id' => $to_section->id,
+                'group_id' => $to_group_code,
+                'value' => 0
             ]);
-            Tashimlog::insert([
-                'type' => 1,
-                'label_id' => $to_label->id,
-                'from_section_id' => $from_cost->section_id,
-                'to_section_id' => $to_section->id,
-                'prev_value' => $corresponding_cost->value,
-                'receive' => $cost_of_each_section,
-                'send' => 1,
-                'final' => $corresponding_cost->value + $cost_of_each_section
+           
+
+            $from_group_code = 0;
+            if ($from_sections->group_id === 1) {
+                $from_group_code = 811 ;
+            } elseif ($to_section->group_id === 2) {
+                $from_group_code = 812 ;
+            } else {
+                $from_group_code = 813 ;
+            }
+            
+            $new_from_cost = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->first();
+            $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
+                'value' => DB::raw("ROUND(value - ($cost_for_each_section * $to_section->users))")
             ]);
             
-            $corresponding_cost->update([
-                    'label_id' => $to_label->id,
-                    'section_id' => $to_section->id,
-                    'group_id' => $get_section_id,
-                    'value' => $corresponding_cost->value + $cost_of_each_section
+            $to_costs_update = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->update([
+                'value' => DB::raw("ROUND(value + ($cost_for_each_section * $to_section->users))")
             ]);
 
-            $from_cost_updated = Cost::where('id', $from_cost->id)->first();
-            error_log($from_cost_updated);
+            if ($from_label_code === 1) {
+                error_log($new_from_cost->value - $cost_for_each_section * $to_section->users);
+                // error_log($cost_for_each_section * $to_section->users);
+                // error_log($to_costs->value);
+            }
         }
     }
     return Response::json(['done']);
