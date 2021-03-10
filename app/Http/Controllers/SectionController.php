@@ -79,7 +79,7 @@ class SectionController extends Controller
     public function get_section_cost_with_id(Request $request)
     {
         $id = $request['id'];
-        $section_with_costs = Section::where('id', $id)->with('costs.label')->first();
+        $section_with_costs = Section::where('id', $id)->with('costs.label')->orderBy('code', 'ASC')->first();
         $sum = Cost::where('section_id', $id)->sum('value');
         return Response::json(['sections_with_costs' => $section_with_costs,'sum' => $sum ]);
     }
