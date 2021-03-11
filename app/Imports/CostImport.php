@@ -36,7 +36,9 @@ class CostImport implements ToCollection, WithHeadingRow
                 'label_id' => $label->id,
                 'section_id' => $section->id,
                 'group_id' => (integer) $row['group'],
-                'value' => (integer) $row['produce_value']
+                'prev_value' => (integer) $row['produce_value'],
+                'change' => 0,
+                'final' => (integer) $row['produce_value'],
             ]);
         }
     }

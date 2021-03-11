@@ -22,10 +22,10 @@ class CreateTashimlogsTable extends Migration
             $table->foreign('from_section_id')->references('id')->on('sections');
             $table->unsignedBigInteger('to_section_id')->index();
             $table->foreign('to_section_id')->references('id')->on('sections');
-            $table->unsignedBigInteger('prev_value');
-            $table->unsignedBigInteger('receive');
-            $table->unsignedBigInteger('send');
-            $table->unsignedBigInteger('final');
+            $table->bigInteger('prev_value');
+            $table->bigInteger('receive');
+            $table->bigInteger('send');
+            $table->bigInteger('final');
             $table->timestamps();
         });
     }

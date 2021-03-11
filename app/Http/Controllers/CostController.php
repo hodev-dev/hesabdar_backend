@@ -19,14 +19,14 @@ class CostController extends Controller
 
     public function sum()
     {
-        return Cost::get()->sum('value');
+        return Cost::get()->sum('prev_value');
     }
 
     public function get_label_cost(Request $request)
     {
         $costs = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->with('label', 'section')->get();
-        $sum = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->sum('value');
-        $sumInRange = Cost::whereBetween('label_id', [1,$request['label_id']])->sum('value');
+        $sum = Cost::where('label_id', $request['label_id'])->where('group_id', $request['group_code'])->sum('prev_value');
+        $sumInRange = Cost::whereBetween('label_id', [1,$request['label_id']])->sum('prev_value');
         return Response::json(['costs' => $costs,'sum' => $sum ,'range_sum' => $sumInRange]);
     }
 
@@ -34,8 +34,8 @@ class CostController extends Controller
     {
         // return Cost::whereBetween('label_id', [1,97])->where('group_id', 811)->sum('value');
         // return $sum_811;
-        $sum_811 = Cost::whereBetween('label_id', [1,97])->where('group_id', 811)->sum('value');
-        return $sum_811 + Cost::whereBetween('label_id', [1,72])->where('group_id', 812)->sum('value');
+        $sum_811 = Cost::whereBetween('label_id', [1,97])->where('group_id', 811)->sum('prev_value');
+        return $sum_811 + Cost::whereBetween('label_id', [1,72])->where('group_id', 812)->sum('prev_value');
         // return Cost::where('label_id', 64)->where('group_id', 812)->sum('value');
         // return Cost::where('group_id', 811)->sum('value');
     }
