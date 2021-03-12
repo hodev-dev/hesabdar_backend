@@ -31,14 +31,15 @@ class CostImport implements ToCollection, WithHeadingRow
 
             error_log($section->id);
             error_log($section->name);
+            error_log($row['produce_value']);
 
             Cost::create([
                 'label_id' => $label->id,
                 'section_id' => $section->id,
                 'group_id' => (integer) $row['group'],
                 'prev_value' => (integer) $row['produce_value'],
-                'change' => 0,
-                'final' => (integer) $row['produce_value'],
+                'change' => (integer) 0,
+                'final' => (integer) $row['produce_value' ],
             ]);
         }
     }
