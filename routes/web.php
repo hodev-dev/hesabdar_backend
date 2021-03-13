@@ -4,6 +4,7 @@ use App\Models\Cost;
 use App\Models\Label;
 use App\Models\Section;
 use App\Models\Tashimlog;
+use App\Models\Tashimorder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -90,10 +91,10 @@ Route::post('/tahsim', function (Request $request) {
     foreach ($from_sections->costs as $from_cost) {
         $from_label_code = $from_cost->label->code;
         $from_label_id = $from_cost->label->id;
-        $total_users = Section::all()->sum('users');
+        $total_users = Section::where('sharable', 0)->get()->sum('users');
         $from_users = Section::where('id', $from_cost->section_id)->first()->users;
         $users = $total_users - $from_users;
-        $to_sections = Section::where('id', '!=', $request->id)->get();
+        $to_sections = Section::where('id', '!=', $request->id)->where('sharable', 0)->get();
         foreach ($to_sections as $to_section) {
             $to_group_code = 0;
             if ($to_section->group_id === 1) {
@@ -131,7 +132,8 @@ Route::post('/tahsim', function (Request $request) {
             $change_sum_from =  Cost::where('label_id', 73)->where('section_id', 9)->sum('change');
             $change_sam_target =  Cost::where('section_id', '!=', 9)->orWhere('label_id', 28)->orWhere('label_id', 73)->orWhere('label_id', 120)->sum('change');
             $new_from_cost = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->first();
-            $cost_for_each_section = round($new_from_cost->prev_value / $users);
+            // $cost_for_each_section = round($new_from_cost->final / $users);
+            $cost_for_each_section = round($from_cost->final / $users);
             $new_to_cost = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->first();
             $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
                 // 'change' => DB::raw("ROUND(change + $cost_for_each_section * $to_section->users))"),
@@ -147,25 +149,10 @@ Route::post('/tahsim', function (Request $request) {
             ]);
             // if ($from_label_code === 72) {
                
-            //     $test_cost = $test_cost + $cost_for_each_section * $to_section->users;
-            //     error_log(round($cost_for_each_section * $to_section->users));
-            //     error_log($test_cost);
-            //     error_log($to_section->name);
-            //     error_log(round($cost_for_each_section * $to_section->users));
-            //     error_log($change_sam_target);
-            //     error_log($new_from_cost->prev_value);
-            //     error_log($to_section->users);
-            //     error_log($new_to_cost->prev_value);
-            //     error_log($new_to_cost->final + round($cost_for_each_section * $to_section->users));
-            //     error_log($new_to_cost->final);
-            //     error_log($cost_for_each_section);
-            //     error_log('---------------------------------------------------');
-            //     error_log($cost_for_each_section * $to_section->users);
-            //     error_log($to_costs->value);
-            // }
-            // $test_cost = $test_cost + ($new_to_cost->final + ($cost_for_each_section * $to_section->users));
-          
-
+            error_log($total_users);
+            error_log($to_section->users);
+            error_log(round($cost_for_each_section * $to_section->users));
+            error_log('---------------------------------------------------');
             // Tashimlog::create([
             //     'type' => 0,
             //     'label_id' => $from_label_id,
@@ -188,5 +175,8 @@ Route::post('/tahsim', function (Request $request) {
             // ]);
         }
     }
+    $from_sections->update([
+        'sharable' => 1
+    ]);
     return Response::json($to_label->id);
 });
