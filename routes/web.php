@@ -175,6 +175,14 @@ Route::post('/tahsim', function (Request $request) {
             // ]);
         }
     }
+    $sum_final_before = Cost::all()->sum('final');
+    $from_remain = Cost::where('section_id', $from_sections->id)->sum('final');
+    $from_remain_zero = Cost::where('section_id', $from_sections->id)->update(['final' => 0]);
+    $to_remain_final = Cost::where('section_id', 1)->where('label_id', 1)->first();
+    $to_remain = Cost::where('section_id', 1)->where('label_id', 1)->update(['final' => $to_remain_final->final + $from_remain]);
+    $sum_final_after = Cost::all()->sum('final');
+    error_log($sum_final_before);
+    error_log($sum_final_after);
     $from_sections->update([
         'sharable' => 1
     ]);
