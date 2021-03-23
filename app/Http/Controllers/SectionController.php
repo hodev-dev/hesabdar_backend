@@ -82,6 +82,70 @@ class SectionController extends Controller
         $section_with_costs = Section::where('id', $id)->with('costs.label')->orderBy('code', 'ASC')->first();
         $sum = Cost::where('section_id', $id)->sum('prev_value');
         $final_sum = Cost::where('section_id', $id)->sum('final');
-        return Response::json(['sections_with_costs' => $section_with_costs,'sum' => $sum,'final_sum' => $final_sum ]);
+        $final_sum = Cost::where('section_id', $id)->sum('final');
+        $prev_vlaue_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->whereBetween('code', [1,26]);
+            // $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 5);
+        })->sum('prev_value');
+
+        $final_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->whereBetween('code', [1,26]);
+        })->sum('final');
+
+        $prev_value_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+        })->sum('prev_value');
+
+        $final_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+        })->sum('final');
+
+        $prev_value_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+        })->sum('prev_value');
+        
+        $final_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+        })->sum('final');
+
+        $prev_value_tamir = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 34)->orWhere('code', 35)->orWhere('code', 36)
+            ->orWhere('code', 69)->orWhere('code', 70)->orWhere('code', 71)->orWhere('code', 72)->orWhere('code', 73)
+            ->orWhere('code', 74)->orWhere('code', 75)->orWhere('code', 77)->orWhere('code', 78)->orWhere('code', 79)
+            ->orWhere('code', 80);
+        })->sum('prev_value');
+        
+        $final_tamir = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 34)->orWhere('code', 35)->orWhere('code', 36)
+            ->orWhere('code', 69)->orWhere('code', 70)->orWhere('code', 71)->orWhere('code', 72)->orWhere('code', 73)
+            ->orWhere('code', 74)->orWhere('code', 75)->orWhere('code', 77)->orWhere('code', 78)->orWhere('code', 79)
+            ->orWhere('code', 80);
+        })->sum('final');
+
+        $prev_vlaue_estelak = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->whereBetween('code', [90,97]);
+        })->sum('prev_value');
+
+        $final_estelak = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->whereBetween('code', [90,97]);
+        })->sum('final');
+
+        return Response::json(
+            [
+            'sections_with_costs' => $section_with_costs,
+            'sum' => $sum,
+            'final_sum' => $final_sum,
+            'prev_vlaue_wage_sum' => $prev_vlaue_wage_sum,
+            'final_wage_sum' => $final_wage_sum,
+            'prev_value_bime' => $prev_value_bime,
+            'final_bime' => $final_bime,
+            'prev_value_sanavat' => $prev_value_sanavat,
+            'final_sanavat' => $final_sanavat,
+            'prev_value_tamir' => $prev_value_tamir,
+            'final_tamir' => $final_tamir,
+            'prev_vlaue_estelak' => $prev_vlaue_estelak,
+            'final_estelak' => $final_estelak
+         ]
+        );
     }
 }
