@@ -49,4 +49,8 @@ class CostImport implements ToCollection, WithHeadingRow
     {
         return 10;
     }
+    public function batchSize(): int
+    {
+        return 10;
+    }
 }
