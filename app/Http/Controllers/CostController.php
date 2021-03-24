@@ -13,8 +13,12 @@ class CostController extends Controller
 {
     public function import_cost(Request $request)
     {
-        Excel::import(new CostImport, $request['exel']);
-        return Response::json(['imported']);
+        try {
+            Excel::import(new CostImport, $request['exel']);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            return Response::json([$failures]);
+        }
     }
 
     public function sum()
