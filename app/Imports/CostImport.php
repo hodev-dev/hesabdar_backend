@@ -19,11 +19,12 @@ class CostImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            // error_log($row['produce_value']);
-            // error_log($row['group']);
-            // error_log((integer) $row['code']);
-            // error_log((integer) $row['group']);
-            $code = (integer) $row['section_id'] + 100000;
+            error_log($row['produce_value']);
+            error_log($row['group']);
+            error_log((integer) $row['code']);
+            error_log((integer) $row['group']);
+            // $code = (integer) $row['section_id'] + 100000;
+            $code = (integer) $row['section_id'];
             $section = Section::where('code', $code)->first();
             $label = Label::where('group_code', (integer) $row['group'])
             ->where('code', (integer) $row['code'])

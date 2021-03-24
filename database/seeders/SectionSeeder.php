@@ -23,7 +23,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 5,
-                'produce' => 10046160
+                'produce' => 13788022
             ],
             [
                 'name' => 'لوله سازی',
@@ -32,7 +32,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 29,
-                'produce' => 1
+                'produce' => 30619076
             ],
             [
                 'name' => 'کشش لوله',
@@ -41,7 +41,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 11,
-                'produce' => 742092
+                'produce' => 3031445
             ],
             [
                 'name' => 'گالوانیزه لوله',
@@ -50,7 +50,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 25,
-                'produce' => 1
+                'produce' => 4635312
             ],
             [
                 'name' => 'تست و پلیسه گیر',
@@ -59,7 +59,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 31,
-                'produce' => 1
+                'produce' => 10095156
             ],
             [
                 'name' => 'تست پنج شاخه',
@@ -68,7 +68,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'رزوه',
@@ -77,7 +77,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 1,
-                'produce' => 1502313
+                'produce' => 1931380
             ],
             [
                 'name' => 'سالن سازی',
@@ -86,7 +86,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 1,
                 'users' => 5,
-                'produce' => 1
+                'produce' => 0
             ],
 
             // خدمات
@@ -97,7 +97,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'کنترل کیفی و ازمایشگاه',
@@ -106,7 +106,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 10,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'دفتر فنی',
@@ -115,7 +115,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 4,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'ماشین سازی',
@@ -124,7 +124,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 4,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تعمیرات برق',
@@ -133,7 +133,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 16,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تعمیرات وسایل نقلیه',
@@ -142,7 +142,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 16,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تعمیرات ساختمانی',
@@ -151,7 +151,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تعمیرات تاسیساتی',
@@ -160,7 +160,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تعمیرات خطوط',
@@ -169,7 +169,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 11,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'خدمات عمومی رفاه',
@@ -178,7 +178,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 4,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'رستوران',
@@ -187,7 +187,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'ترابری',
@@ -196,7 +196,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'ایمنی',
@@ -205,7 +205,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'انبارها',
@@ -214,7 +214,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 32,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'انبار قطعات یدکی',
@@ -223,7 +223,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 2,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'انبار میانی',
@@ -232,7 +232,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 7,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'بهداشت و درمان',
@@ -241,18 +241,8 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 2,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
-            [
-                'name' => 'دفتر فنی',
-                'code' => 112120,
-                'sharable' => 0,
-                'tahsimlable_id' => 1,
-                'group_id' => 2,
-                'users' => 1,
-                'produce' => 1
-            ],
-
             // اداری خدمات و فروش
             [
                 'name' => 'مدریت',
@@ -261,7 +251,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'امور مالی',
@@ -270,7 +260,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'مخابرات',
@@ -279,7 +269,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 3,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'کارگزینی',
@@ -288,7 +278,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'انتظامات',
@@ -297,7 +287,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 17,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'فروش',
@@ -306,7 +296,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 2,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'تدارکات',
@@ -315,7 +305,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
             [
                 'name' => 'کامپیوتر',
@@ -324,7 +314,7 @@ class SectionSeeder extends Seeder
                 'tahsimlable_id' => 1,
                 'group_id' => 3,
                 'users' => 1,
-                'produce' => 1
+                'produce' => 0
             ],
         ]);
     }
