@@ -44,4 +44,9 @@ class CostImport implements ToCollection, WithHeadingRow
             ]);
         }
     }
+
+    public function chunkSize(): int
+    {
+        return 10;
+    }
 }
