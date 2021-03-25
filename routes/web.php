@@ -88,14 +88,14 @@ Route::post('/tahsim', function (Request $request) {
     $final_test = 0;
     $from_sections = Section::where('id', $request->id)->with('costs.label')->first();
     $test_sections = Section::where('id', '!=', $request->id)->get();
-    foreach ($from_sections->costs as $from_cost) {
+    foreach ($from_sections->costs as $cost_index =>$from_cost) {
         $from_label_code = $from_cost->label->code;
         $from_label_id = $from_cost->label->id;
         $total_users = Section::where('sharable', 0)->get()->sum('users');
         $from_users = Section::where('id', $from_cost->section_id)->first()->users;
         $users = $total_users - $from_users;
         $to_sections = Section::where('id', '!=', $request->id)->where('sharable', 0)->get();
-        foreach ($to_sections as $to_section) {
+        foreach ($to_sections as $section_index => $to_section) {
             $to_group_code = 0;
             if ($to_section->group_id === 1) {
                 $to_group_code = 811 ;
@@ -138,7 +138,7 @@ Route::post('/tahsim', function (Request $request) {
             $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
                 // 'change' => DB::raw("ROUND(change + $cost_for_each_section * $to_section->users))"),
                 // 'final' => DB::raw("ROUND(final - ($cost_for_each_section * $to_section->users))")
-                'change' => $new_from_cost->change + round($cost_for_each_section * $to_section->users),
+                'change' => $new_from_cost->change - round($cost_for_each_section * $to_section->users),
                 'final' =>  $new_from_cost->final - round($cost_for_each_section * $to_section->users)
             ]);
             $to_costs_update = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->update([
@@ -147,11 +147,27 @@ Route::post('/tahsim', function (Request $request) {
                 'change' => $new_to_cost->change + round($cost_for_each_section * $to_section->users),
                 'final' =>  $new_to_cost->final + round($cost_for_each_section * $to_section->users)
             ]);
-            // if ($from_label_code === 72) {
-               
-            error_log($total_users);
-            error_log($to_section->users);
-            error_log(round($cost_for_each_section * $to_section->users));
+            // $cost_index === count($from_sections->costs) - 1
+            if ($section_index === count($to_sections) - 1) {
+                error_log($new_from_cost->final);
+                error_log($new_to_cost->final);
+                $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
+                    // 'change' => DB::raw("ROUND(change + $cost_for_each_section * $to_section->users))"),
+                    // 'final' => DB::raw("ROUND(final - ($cost_for_each_section * $to_section->users))")
+                    'change' => $new_from_cost->change - $new_from_cost->final,
+                    'final' =>  0
+                ]);
+                $to_costs_update = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->update([
+                    // 'change' => DB::raw("ROUND(change + ($cost_for_each_section * $to_section->users))"),
+                    // 'final' => DB::raw("ROUND(final + ($cost_for_each_section * $to_section->users))")
+                    'change' => $new_to_cost->change + $new_from_cost->final,
+                    'final' =>  $new_to_cost->final + $new_from_cost->final
+                ]);
+            }
+            
+            // error_log($total_users);
+            // error_log($to_section->users);
+            // error_log(round($cost_for_each_section * $to_section->users));
             error_log('---------------------------------------------------');
             // Tashimlog::create([
             //     'type' => 0,
@@ -179,7 +195,7 @@ Route::post('/tahsim', function (Request $request) {
     // $from_remain = Cost::where('section_id', $from_sections->id)->sum('final');
     // $from_remain_zero = Cost::where('section_id', $from_sections->id)->update(['final' => 0]);
     // $to_remain_final = Cost::where('section_id', 1)->where('label_id', 1)->first();
-    // $to_remain = Cost::where('section_id', 1)->where('label_id', 1)->update(['final' => $to_remain_final->final + $from_remain]);
+    // $to_remain = Cost::where('section_id', 1)->where('label_id', 1)->update(['final' => $to_remain_final->final + $from_remain,'change' => $to_remain_final->change + $from_remain]);
     // $sum_final_after = Cost::all()->sum('final');
     // error_log($sum_final_before);
     // error_log($sum_final_after);
@@ -201,7 +217,7 @@ Route::post('/tahsim_produce', function (Request $request) {
         $from_label_id = $from_cost->label->id;
         $from_users = Section::where('id', $from_cost->section_id)->first()->users;
         $to_sections = Section::where('id', '!=', $request->id)->where('sharable', 0)->get();
-        foreach ($to_sections as $to_section) {
+        foreach ($to_sections as $section_index => $to_section) {
             $to_group_code = 0;
             if ($to_section->group_id === 1) {
                 $to_group_code = 811 ;
@@ -244,15 +260,30 @@ Route::post('/tahsim_produce', function (Request $request) {
             $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
                 // 'change' => DB::raw("ROUND(change + $cost_for_each_section * $to_section->users))"),
                 // 'final' => DB::raw("ROUND(final - ($cost_for_each_section * $to_section->users))")
-                'change' => $new_from_cost->change + $cost_for_each_section * $to_section->produce,
-                'final' =>  $new_from_cost->final - $cost_for_each_section * $to_section->produce
+                'change' => $new_from_cost->change - round($cost_for_each_section * $to_section->produce),
+                'final' =>  $new_from_cost->final - round($cost_for_each_section * $to_section->produce)
             ]);
             $to_costs_update = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->update([
                 // 'change' => DB::raw("ROUND(change + ($cost_for_each_section * $to_section->users))"),
                 // 'final' => DB::raw("ROUND(final + ($cost_for_each_section * $to_section->users))")
-                'change' => $new_to_cost->change + $cost_for_each_section * $to_section->produce,
-                'final' =>  $new_to_cost->final + $cost_for_each_section * $to_section->produce
+                'change' => $new_to_cost->change + round($cost_for_each_section * $to_section->produce),
+                'final' =>  $new_to_cost->final + round($cost_for_each_section * $to_section->produce)
             ]);
+            if ($section_index === count($to_sections) - 1) {
+                error_log($new_from_cost->final);
+                $from_cost_update = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->update([
+                    // 'change' => DB::raw("ROUND(change + $cost_for_each_section * $to_section->users))"),
+                    // 'final' => DB::raw("ROUND(final - ($cost_for_each_section * $to_section->users))")
+                    'change' => $new_from_cost->change - $new_from_cost->final,
+                    'final' =>  0
+                ]);
+                $to_costs_update = Cost::where('section_id', $to_section->id)->where('label_id', $to_label_id)->update([
+                    // 'change' => DB::raw("ROUND(change + ($cost_for_each_section * $to_section->users))"),
+                    // 'final' => DB::raw("ROUND(final + ($cost_for_each_section * $to_section->users))")
+                    'change' => $new_to_cost->change + $new_from_cost->final,
+                    'final' =>  $new_to_cost->final + $new_from_cost->final
+                ]);
+            }
             if ($from_label_code === 5) {
                 error_log($total_produce);
                 error_log($to_section->produce);
@@ -268,7 +299,7 @@ Route::post('/tahsim_produce', function (Request $request) {
     // $from_remain = Cost::where('section_id', $from_sections->id)->sum('final');
     // $from_remain_zero = Cost::where('section_id', $from_sections->id)->update(['final' => 0]);
     // $to_remain_final = Cost::where('section_id', 1)->where('label_id', 1)->first();
-    // $to_remain = Cost::where('section_id', 1)->where('label_id', 1)->update(['final' => $to_remain_final->final + $from_remain]);
+    // $to_remain = Cost::where('section_id', 1)->where('label_id', 1)->update(['final' => $to_remain_final->final + $from_remain,'change' => $to_remain_final->fianl + $from_remain]);
     // $sum_final_after = Cost::all()->sum('final');
     // error_log($sum_final_before);
     // error_log($sum_final_after);
@@ -281,4 +312,30 @@ Route::post('/tahsim_produce', function (Request $request) {
 Route::get('/refresh', function () {
     $start  = Artisan::call("migrate:fresh --seed");
     return Artisan::output();
+});
+
+Route::get('/get_section_label', function () {
+    $group_cost = Cost::where('group_id', 813)->with('label')->get();
+    $group_cost_with_sum =  $group_cost->groupBy('label.code')->map(function ($query) {
+        return (array) [
+            'name' => $query->first()->label->name,
+            'code' => $query->first()->label->code,
+            'group_id' => $query->first()->group_id,
+            'prev_sum' => $query->sum('prev_value'),
+            'change_sum' => $query->sum('change'),
+            'prev_change' => $query->sum('prev_value') + $query->sum('change'),
+            'final_sum' => $query->sum('final')
+        ];
+    });
+    $prev_sum_section = Cost::where('group_id', 813)->sum('prev_value');
+    $change_sum_section = Cost::where('group_id', 813)->sum('change');
+    $final_sum_section = Cost::where('group_id', 813)->sum('final');
+
+    return Response::json([
+        'title' => 'گزارش ثانویه تسهیم بخش اداری',
+        'group_cost' => $group_cost_with_sum->toArray(),
+         'prev_value_sum' => $prev_sum_section,
+         'change_sum_section' => $change_sum_section,
+         'final_sum_section' => $final_sum_section,
+    ]);
 });

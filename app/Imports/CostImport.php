@@ -24,16 +24,14 @@ class CostImport implements ToCollection, WithHeadingRow
             // error_log((integer) $row['code']);
             // error_log((integer) $row['group']);
             // $code = (integer) $row['section_id'] + 100000;
+            // error_log($section->id);
+            // error_log($section->name);
+            // error_log($row['produce_value']);
             $code = (integer) $row['section_id'];
             $section = Section::where('code', $code)->first();
             $label = Label::where('group_code', (integer) $row['group'])
             ->where('code', (integer) $row['code'])
             ->first();
-
-            // error_log($section->id);
-            // error_log($section->name);
-            // error_log($row['produce_value']);
-
             Cost::create([
                 'label_id' => $label->id,
                 'section_id' => $section->id,

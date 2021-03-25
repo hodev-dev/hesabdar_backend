@@ -84,12 +84,20 @@ class SectionController extends Controller
         $final_sum = Cost::where('section_id', $id)->sum('final');
         $final_sum = Cost::where('section_id', $id)->sum('final');
         $prev_vlaue_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
-            $query->whereBetween('code', [1,26]);
+            $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+            ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+            ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+            ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+            ->orWhere('code', 26);
             // $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 5);
         })->sum('prev_value');
 
         $final_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
-            $query->whereBetween('code', [1,26]);
+            $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+            ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+            ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+            ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+            ->orWhere('code', 26);
         })->sum('final');
 
         $prev_value_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
