@@ -98,7 +98,7 @@ class SectionController extends Controller
             ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
             ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
             ->orWhere('code', 26);
-        })->sum('final');
+        })->sum('change');
 
         $prev_value_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
@@ -106,7 +106,7 @@ class SectionController extends Controller
 
         $final_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
-        })->sum('final');
+        })->sum('change');
 
         $prev_value_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
@@ -114,7 +114,7 @@ class SectionController extends Controller
         
         $final_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
-        })->sum('final');
+        })->sum('change');
 
         $prev_value_tamir = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 34)->orWhere('code', 35)->orWhere('code', 36)
@@ -128,7 +128,7 @@ class SectionController extends Controller
             ->orWhere('code', 69)->orWhere('code', 70)->orWhere('code', 71)->orWhere('code', 72)->orWhere('code', 73)
             ->orWhere('code', 74)->orWhere('code', 75)->orWhere('code', 77)->orWhere('code', 78)->orWhere('code', 79)
             ->orWhere('code', 80);
-        })->sum('final');
+        })->sum('change');
 
         $prev_vlaue_estelak = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->whereBetween('code', [90,97]);
@@ -136,7 +136,7 @@ class SectionController extends Controller
 
         $final_estelak = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->whereBetween('code', [90,97]);
-        })->sum('final');
+        })->sum('change');
 
         return Response::json(
             [
