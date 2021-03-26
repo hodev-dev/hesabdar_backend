@@ -314,8 +314,8 @@ Route::get('/refresh', function () {
     return Artisan::output();
 });
 
-Route::get('/get_section_label', function () {
-    $group_cost = Cost::where('group_id', 813)->with('label')->get();
+Route::post('/get_section_label', function (Request $request) {
+    $group_cost = Cost::where('group_id', $request['group_id'])->with('label')->get();
     $group_cost_with_sum =  $group_cost->groupBy('label.code')->map(function ($query) {
         return (array) [
             'name' => $query->first()->label->name,
@@ -327,12 +327,12 @@ Route::get('/get_section_label', function () {
             'final_sum' => $query->sum('final')
         ];
     });
-    $prev_sum_section = Cost::where('group_id', 813)->sum('prev_value');
-    $change_sum_section = Cost::where('group_id', 813)->sum('change');
-    $final_sum_section = Cost::where('group_id', 813)->sum('final');
-
+    $prev_sum_section = Cost::where('group_id', $request['group_id'])->sum('prev_value');
+    $change_sum_section = Cost::where('group_id', $request['group_id'])->sum('change');
+    $final_sum_section = Cost::where('group_id', $request['group_id'])->sum('final');
+    $chouse_title = ($request['group_id'] === 811) ? 'گزارش ثانویه تسهیم بخش تولید'  : 'گزارش ثانویه تسهیم بخش اداری';
     return Response::json([
-        'title' => 'گزارش ثانویه تسهیم بخش اداری',
+        'title' => $chouse_title,
         'group_cost' => $group_cost_with_sum->toArray(),
          'prev_value_sum' => $prev_sum_section,
          'change_sum_section' => $change_sum_section,
