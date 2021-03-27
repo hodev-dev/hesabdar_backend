@@ -16,6 +16,7 @@ class CostController extends Controller
         Cost::truncate();
         $cost_import = new CostImport();
         Excel::import($cost_import, $request['exel']);
+        Section::query()->update(['sharable' => 0, ]);
         return Response::json(['errors' => $cost_import->err]);
     }
 

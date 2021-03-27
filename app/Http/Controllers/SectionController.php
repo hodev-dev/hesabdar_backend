@@ -83,6 +83,7 @@ class SectionController extends Controller
         $sum = Cost::where('section_id', $id)->sum('prev_value');
         $final_sum = Cost::where('section_id', $id)->sum('final');
         $final_sum = Cost::where('section_id', $id)->sum('final');
+
         $prev_vlaue_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
             ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
@@ -92,7 +93,7 @@ class SectionController extends Controller
             // $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 5);
         })->sum('prev_value');
 
-        $final_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+        $change_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
             ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
             ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
@@ -100,21 +101,37 @@ class SectionController extends Controller
             ->orWhere('code', 26);
         })->sum('change');
 
+        $final_wage_sum = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+            ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+            ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+            ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+            ->orWhere('code', 26);
+        })->sum('final');
+
         $prev_value_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
         })->sum('prev_value');
 
-        $final_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+        $change_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
         })->sum('change');
+
+        $final_bime = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+        })->sum('final');
 
         $prev_value_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
         })->sum('prev_value');
-        
-        $final_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+
+        $change_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
         })->sum('change');
+
+        $final_sanavat = Cost::where('section_id', $id)->whereHas('label', function ($query) {
+            $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+        })->sum('final');
 
         $prev_value_tamir = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->where('code', 34)->orWhere('code', 35)->orWhere('code', 36)
@@ -136,7 +153,7 @@ class SectionController extends Controller
 
         $final_estelak = Cost::where('section_id', $id)->whereHas('label', function ($query) {
             $query->whereBetween('code', [90,97]);
-        })->sum('change');
+        })->sum('final');
 
         return Response::json(
             [
@@ -144,10 +161,13 @@ class SectionController extends Controller
             'sum' => $sum,
             'final_sum' => $final_sum,
             'prev_vlaue_wage_sum' => $prev_vlaue_wage_sum,
+            'change_wage_sum' => $change_wage_sum,
             'final_wage_sum' => $final_wage_sum,
             'prev_value_bime' => $prev_value_bime,
+            'change_bime' => $change_bime,
             'final_bime' => $final_bime,
             'prev_value_sanavat' => $prev_value_sanavat,
+            'change_sanavat' => $change_sanavat,
             'final_sanavat' => $final_sanavat,
             'prev_value_tamir' => $prev_value_tamir,
             'final_tamir' => $final_tamir,

@@ -78,7 +78,7 @@ class CostImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnF
     {
         return [
             'name' => $type,
-            'index' => $index + 1,
+            'index' => $index + 2,
             'label' => $row['label'],
             'group' => $row['group'],
             'code' => $row['code'],

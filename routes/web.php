@@ -165,9 +165,9 @@ Route::post('/tahsim', function (Request $request) {
                 ]);
             }
             
-            // error_log($total_users);
-            // error_log($to_section->users);
-            // error_log(round($cost_for_each_section * $to_section->users));
+            error_log($total_users);
+            error_log($to_section->users);
+            error_log(round($cost_for_each_section * $to_section->users));
             error_log('---------------------------------------------------');
             // Tashimlog::create([
             //     'type' => 0,
@@ -251,8 +251,8 @@ Route::post('/tahsim_produce', function (Request $request) {
                 $from_group_code = 813 ;
             }
             
-            $change_sum_from =  Cost::where('label_id', 73)->where('section_id', 9)->sum('change');
-            $change_sam_target =  Cost::where('section_id', '!=', 9)->orWhere('label_id', 28)->orWhere('label_id', 73)->orWhere('label_id', 120)->sum('change');
+            // $change_sum_from =  Cost::where('label_id', 73)->where('section_id', 9)->sum('change');
+            // $change_sam_target =  Cost::where('section_id', '!=', 9)->orWhere('label_id', 28)->orWhere('label_id', 73)->orWhere('label_id', 120)->sum('change');
             $new_from_cost = Cost::where('section_id', $from_cost->section_id)->where('label_id', $from_label_id)->first();
             // $cost_for_each_section = round($new_from_cost->final / $users);
             $cost_for_each_section = $from_cost->final / $total_produce;
@@ -316,6 +316,56 @@ Route::get('/refresh', function () {
 
 Route::post('/get_section_label', function (Request $request) {
     $group_cost = Cost::where('group_id', $request['group_id'])->with('label')->get();
+    $prev_vlaue_wage_sum = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+        ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+        ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+        ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+        ->orWhere('code', 26);
+        // $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 5);
+    })->sum('prev_value');
+
+    $change_wage_sum = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+        ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+        ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+        ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+        ->orWhere('code', 26);
+    })->sum('change');
+
+    $final_wage_sum = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 1)->orWhere('code', 2)->orWhere('code', 3)
+        ->orWhere('code', 4)->orWhere('code', 5)->orWhere('code', 6)->orWhere('code', 7)->orWhere('code', 14)
+        ->orWhere('code', 15)->orWhere('code', 16)->orWhere('code', 17)->orWhere('code', 18)->orWhere('code', 20)
+        ->orWhere('code', 21)->orWhere('code', 22)->orWhere('code', 23)->orWhere('code', 24)->orWhere('code', 25)
+        ->orWhere('code', 26);
+    })->sum('final');
+
+
+    $prev_value_bime = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+    })->sum('prev_value');
+
+    $change_bime = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+    })->sum('change');
+
+    $final_bime = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 10)->orWhere('code', 11)->orWhere('code', 12)->orWhere('code', 13);
+    })->sum('final');
+
+    $prev_value_sanavat = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+    })->sum('prev_value');
+
+    $change_sanavat = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+    })->sum('change');
+
+    $final_sanavat = Cost::where('group_id', $request['group_id'])->whereHas('label', function ($query) {
+        $query->where('code', 8)->orWhere('code', 9)->orWhere('code', 25);
+    })->sum('final');
+
     $group_cost_with_sum =  $group_cost->groupBy('label.code')->map(function ($query) {
         return (array) [
             'name' => $query->first()->label->name,
@@ -330,12 +380,21 @@ Route::post('/get_section_label', function (Request $request) {
     $prev_sum_section = Cost::where('group_id', $request['group_id'])->sum('prev_value');
     $change_sum_section = Cost::where('group_id', $request['group_id'])->sum('change');
     $final_sum_section = Cost::where('group_id', $request['group_id'])->sum('final');
-    $chouse_title = ($request['group_id'] === 811) ? 'گزارش ثانویه تسهیم بخش تولید'  : 'گزارش ثانویه تسهیم بخش اداری';
+    $chouse_title = ($request['group_id'] == 811) ? 'گزارش ثانویه تسهیم بخش تولید'  : 'گزارش ثانویه تسهیم بخش اداری';
     return Response::json([
         'title' => $chouse_title,
         'group_cost' => $group_cost_with_sum->toArray(),
-         'prev_value_sum' => $prev_sum_section,
-         'change_sum_section' => $change_sum_section,
-         'final_sum_section' => $final_sum_section,
+        'prev_value_sum' => $prev_sum_section,
+        'change_sum_section' => $change_sum_section,
+        'final_sum_section' => $final_sum_section,
+        'prev_vlaue_wage_sum' => $prev_vlaue_wage_sum,
+        'change_wage_sum' => $change_wage_sum,
+        'final_wage_sum' => $final_wage_sum,
+        'prev_value_bime' => $prev_value_bime,
+        'change_bime' => $change_bime,
+        'final_bime' => $final_bime,
+        'prev_value_sanavat' => $prev_value_sanavat,
+        'change_sanavat' => $change_sanavat,
+        'final_sanavat' => $final_sanavat,
     ]);
 });
