@@ -18,6 +18,7 @@ class CreateSectionsTable extends Migration
             $table->string('name');
             $table->integer('code');
             $table->boolean('sharable');
+            $table->integer('share_order');
             $table->unsignedBigInteger('group_id')->index();
             $table->foreign('group_id')->references('id')->on('groups');
             $table->unsignedBigInteger('tahsimlable_id')->index();

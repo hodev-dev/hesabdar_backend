@@ -7,6 +7,7 @@ use App\Models\Tashimlog;
 use App\Models\Tashimorder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CostController;
 use Illuminate\Support\Facades\Response;
@@ -66,6 +67,22 @@ Route::get('/test_sum_2', function (Request $request) {
     // $change_before =  Cost::where('label_id', 73)->where('section_id', 9)->sum('change');
     $change_after =  Cost::orWhere('label_id', 28)->orWhere('label_id', 73)->orWhere('label_id', 120)->where('section_id', '!==', 9)->sum('change');
     return Response::json(['change_before' => $change_before,'change_after' => $change_after]);
+});
+
+Route::get('/test_sum_3', function (Request $request) {
+    $a1 = Cost::where('group_id', 811)->where('label_id', 1)->sum('prev_value');
+    $a2 = Cost::where('group_id', 811)->where('label_id', 2)->sum('prev_value');
+    $a3 = Cost::where('group_id', 811)->where('label_id', 3)->sum('prev_value');
+    $a4 = Cost::where('group_id', 811)->where('label_id', 4)->sum('prev_value');
+    $a5 = Cost::where('group_id', 811)->where('label_id', 5)->sum('prev_value');
+    $a6 = Cost::where('group_id', 811)->where('label_id', 6)->sum('prev_value');
+    $a7 = Cost::where('group_id', 811)->where('label_id', 7)->sum('prev_value');
+    $a12 = Cost::where('group_id', 811)->where('label_id', 12)->sum('prev_value');
+    $a14 = Cost::where('group_id', 811)->where('label_id', 14)->sum('prev_value');
+    $a15 = Cost::where('group_id', 811)->where('label_id', 15)->sum('prev_value');
+    $a16 = Cost::where('group_id', 811)->where('label_id', 16)->sum('prev_value');
+    return $a1 + $a2 + $a3 +$a4 +$a5+$a6+$a7+$a12+$a14+$a15+$a16;
+    // return $a1;
 });
 
 // tashim
@@ -202,7 +219,7 @@ Route::post('/tahsim', function (Request $request) {
     $from_sections->update([
         'sharable' => 1
     ]);
-    return Response::json($to_label->id);
+    return Response::json($from_sections);
 });
 
 
@@ -306,7 +323,7 @@ Route::post('/tahsim_produce', function (Request $request) {
     $from_sections->update([
         'sharable' => 1
     ]);
-    return Response::json($to_label->id);
+    return Response::json($from_sections);
 });
 
 Route::get('/refresh', function () {
@@ -397,4 +414,10 @@ Route::post('/get_section_label', function (Request $request) {
         'change_sanavat' => $change_sanavat,
         'final_sanavat' => $final_sanavat,
     ]);
+});
+
+
+Route::get('/tashim_all', function (Request $request) {
+    $tashim_sections = Section::where('share_order', '!=', 0)->orderBy('share_order')->get();
+    return $tashim_sections;
 });

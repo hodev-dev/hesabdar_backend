@@ -15,7 +15,9 @@ class TahsimLabel extends Seeder
     public function run()
     {
         Tahsimlable::insert([
-            ["name" => "نا مشخص"],
+            ["name" => "تعداد پرسنل"],
+            ["name" => "میزان تولید"],
+            ["name" => "-"],
         ]);
     }
 }

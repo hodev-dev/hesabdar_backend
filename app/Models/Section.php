@@ -10,7 +10,7 @@ class Section extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable =['name','group_id','users','produce','code','sharable','tahsimlable_id'];
+    protected $fillable =['name','group_id','users','produce','code','sharable','share_order','tahsimlable_id'];
 
     public function costs()
     {

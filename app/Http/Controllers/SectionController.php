@@ -56,6 +56,7 @@ class SectionController extends Controller
         $produce = $request['produce'];
         $sharable = $request['sharable'];
         $tahsimLableSelect = $request['tahsimLableSelect'];
+        $shareOrder = $request['shareOrder'];
 
         $selected_section = Section::where('id', $request['id'])
         ->update(
@@ -64,6 +65,7 @@ class SectionController extends Controller
                 'code' => $code,
                 'sharable' => $sharable,
                 'tahsimlable_id' => $tahsimLableSelect,
+                'share_order' => $shareOrder,
                 'group_id' => $group,
                 'users' => $workers_count,
                 'produce' => $produce
