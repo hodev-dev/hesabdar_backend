@@ -38,8 +38,6 @@ class CostImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnF
             // error_log($section->id);
             // error_log($section->name);
             error_log($row['produce_value']);
-            error_log((integer)$row['produce_value']);
-            
             $code = (integer) $row['section_id'];
             $section = Section::where('code', $code)->first();
             $label = Label::where('group_code', (integer) $row['group'])
@@ -59,8 +57,8 @@ class CostImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnF
                         'label_id' => $label->id,
                         'section_id' => $section->id,
                         'group_id' => (integer) $row['group'],
-                        'prev_value' => (integer) $row['produce_value'],
-                        'change' => (integer) 0,
+                        'prev_value' => $row['produce_value'],
+                        'change' =>  0,
                         'final' =>  $row['produce_value' ],
                     ]);
             } else {
