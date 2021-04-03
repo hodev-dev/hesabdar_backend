@@ -35,10 +35,11 @@ class CostImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnF
             // error_log($row['group']);
             // error_log((integer) $row['code']);
             // error_log((integer) $row['group']);
-            // $code = (integer) $row['section_id'] + 100000;
             // error_log($section->id);
             // error_log($section->name);
-            // error_log($row['produce_value']);
+            error_log($row['produce_value']);
+            error_log((integer)$row['produce_value']);
+            
             $code = (integer) $row['section_id'];
             $section = Section::where('code', $code)->first();
             $label = Label::where('group_code', (integer) $row['group'])
@@ -60,7 +61,7 @@ class CostImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnF
                         'group_id' => (integer) $row['group'],
                         'prev_value' => (integer) $row['produce_value'],
                         'change' => (integer) 0,
-                        'final' => (integer) $row['produce_value' ],
+                        'final' =>  $row['produce_value' ],
                     ]);
             } else {
                 $genretaed_error = $this->generateError('خطای عمومی', $row, $row_index);
