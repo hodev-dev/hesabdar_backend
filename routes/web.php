@@ -6,6 +6,7 @@ use App\Models\Section;
 use App\Models\Tashimlog;
 use App\Models\Tashimorder;
 use Illuminate\Http\Request;
+use App\HelperClass\TashimClass;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -419,5 +420,12 @@ Route::post('/get_section_label', function (Request $request) {
 
 Route::get('/tashim_all', function (Request $request) {
     $tashim_sections = Section::where('share_order', '!=', 0)->orderBy('share_order')->get();
+    foreach ($tashim_sections as $section) {
+        if ((int) $section->tahsimlable_id == 1) {
+            TashimClass::withUsers($section->id);
+        } else {
+            TashimClass::withProduce($section->id);
+        }
+    }
     return $tashim_sections;
 });
